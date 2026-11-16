@@ -101,18 +101,15 @@
         .autocomplete-item { padding: 15px 30px; cursor: pointer; color: #1E293B; display: flex; align-items: center; gap: 12px; font-size: 1.05rem; border-bottom: 1px solid #F1F5F9; transition: 0.2s; }
         .autocomplete-item:hover { background: #F0F9FF; color: #0284C7; }
 
-        /* 🗺️ 라이트 홀로그램 세계지도 스테이지 (채도 문제 해결 및 밝은 톤 통일) */
+        /* 🗺️ 라이트 홀로그램 세계지도 스테이지 */
         .hologram-stage {
             position: relative; width: 100%; max-width: 1140px; aspect-ratio: 16 / 8;
-            /* 메인 흰색 배경과 어우러지는 투명하고 밝은 유리 질감 배경 */
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(10px);
             border-radius: 28px; border: 1px solid rgba(14, 165, 233, 0.25);
             box-shadow: 0 15px 40px rgba(2, 132, 199, 0.08), inset 0 0 30px rgba(14, 165, 233, 0.1);
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
-        /* 밝고 청량한 디지털 사이버 격자망 */
         .hologram-stage::before {
             content: ""; position: absolute; inset: 0;
             background-image: 
@@ -121,7 +118,6 @@
             background-size: 40px 40px; pointer-events: none;
         }
 
-        /* 부드러운 라이트 블루 프로젝터 광원 */
         .volumetric-beam {
             position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
             width: 85%; height: 75%;
@@ -139,14 +135,18 @@
         }
         @keyframes beamPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* 실사 고해상도 세계지도 (안정적인 위키미디어 SVG 이미지 활용) */
+        /* 🚨 수정 완료: 지도를 꽉 차게 100%로 설정하고 스케일(Scale)을 1.15배 키웠습니다 */
         .world-map-svg {
-            width: 90%; height: 85%; z-index: 2; object-fit: contain;
-            /* 실제 지도를 밝고 영롱한 시안(Cyan) 홀로그램으로 바꾸는 CSS 마법 */
+            width: 100%; height: 100%; z-index: 2; object-fit: contain;
             filter: invert(55%) sepia(100%) saturate(400%) hue-rotate(165deg) brightness(1.05) drop-shadow(0 0 10px rgba(14, 165, 233, 0.3));
-            animation: floatMap 6s ease-in-out infinite; opacity: 0.8;
+            animation: floatMap 6s ease-in-out infinite; opacity: 0.85;
         }
-        @keyframes floatMap { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
+        
+        /* 스케일을 키워 박스 양옆의 여백을 꽉 채웁니다 */
+        @keyframes floatMap { 
+            0%, 100% { transform: translateY(0px) scale(1.15); } 
+            50% { transform: translateY(-8px) scale(1.16); } 
+        }
 
         /* 📍 사이버네틱 핀(Pin) 클러스터 */
         .region-cluster { position: absolute; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
@@ -157,12 +157,11 @@
             width: fit-content; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1); margin-bottom: 2px;
         }
 
-        /* 실제 지도 비율에 맞춘 핀 위치 재조정 */
-        .cluster-na { top: 22%; left: 18%; }
-        .cluster-eu { top: 20%; left: 47%; }
-        .cluster-kr { top: 35%; right: 15%; }
+        /* 🚨 수정 완료: 커진 지도 비율(1.15배)에 맞춰 핀 위치 정밀 재조정 */
+        .cluster-na { top: 18%; left: 14%; }
+        .cluster-eu { top: 16%; left: 47.5%; }
+        .cluster-kr { top: 34%; right: 10%; }
 
-        /* 밝은 테마에 맞춘 깔끔한 핀 디자인 */
         .media-pin {
             display: flex; align-items: center; gap: 8px;
             background: #FFFFFF; padding: 9px 15px; border-radius: 14px;
@@ -209,7 +208,6 @@
         <div class="intro-text-container">
             <span class="intro-welcome">Welcome to</span>
             <span class="intro-logo">DONNA</span>
-            <!-- 🚨 수정 완료: Open Legal Search Tool -->
             <span class="intro-desc">Open Legal Search Tool</span>
             <div class="intro-tagline">For Students</div>
         </div>
@@ -218,7 +216,6 @@
     <main class="dashboard-wrapper">
         <div class="brand-header">
             <h1>DONNA</h1>
-            <!-- 🚨 수정 완료: Open Legal Search Tool -->
             <div class="brand-subtitle">Open Legal Search Tool · <span>For Students</span></div>
         </div>
 
@@ -230,12 +227,11 @@
             <button class="search-btn" onclick="performMainSearch()">리서치</button>
         </div>
 
-        <!-- 🌍 밝은 테마 기반의 실사 홀로그램 세계지도 스테이지 -->
         <div class="hologram-stage">
             <div class="volumetric-beam"></div>
             <div class="projector-base"></div>
 
-            <!-- 🚨 왜곡 해결: 공신력 있는 고해상도 외부 실사 세계지도 SVG 이미지 불러오기 -->
+            <!-- 실사 세계지도 출력부 -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" class="world-map-svg" alt="Holographic World Map">
 
             <!-- 🇺🇸 북미 핀 클러스터 -->
