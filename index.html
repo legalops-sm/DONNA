@@ -9,12 +9,11 @@
     <script src="donna_db.js"></script>
     
     <style>
-        /* 🌤️ 클린 에어로 라이트 테마 유지 */
+        /* 🌤️ 클린 에어로 라이트 테마 */
         * { box-sizing: border-box; }
         body {
             background: radial-gradient(circle at 50% 20%, #FFFFFF 0%, #EAF4FC 55%, #D4E8FA 100%);
-            color: #0F172A;
-            font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+            color: #0F172A; font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
             margin: 0; padding: 20px; min-height: 100vh;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             overflow-x: hidden;
@@ -22,7 +21,7 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 10px; }
 
-        /* 🎬 인트로 스플래시 유지 */
+        /* 🎬 인트로 스플래시 */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #FFFFFF 0%, #E0F2FE 100%);
@@ -71,7 +70,7 @@
         .brand-subtitle { font-size: 0.95rem; color: #475569; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
         .brand-subtitle span { color: #0284C7; font-weight: 800; }
 
-        /* 🔍 검색창 유지 */
+        /* 🔍 검색창 */
         .search-container {
             width: 100%; max-width: 760px; display: flex; position: relative;
             border-radius: 20px; background: #FFFFFF; border: 2px solid rgba(14, 165, 233, 0.3);
@@ -102,100 +101,79 @@
         .autocomplete-item { padding: 15px 30px; cursor: pointer; color: #1E293B; display: flex; align-items: center; gap: 12px; font-size: 1.05rem; border-bottom: 1px solid #F1F5F9; transition: 0.2s; }
         .autocomplete-item:hover { background: #F0F9FF; color: #0284C7; }
 
-        /* 🗺️ 사실적 전자 홀로그램 맵 스테이지 (여기가 핵심 변경 사항입니다!) */
+        /* 🗺️ 라이트 홀로그램 세계지도 스테이지 (채도 문제 해결 및 밝은 톤 통일) */
         .hologram-stage {
             position: relative; width: 100%; max-width: 1140px; aspect-ratio: 16 / 8;
-            /* 밝은 UI와 대비되어 홀로그램 빛이 돋보이도록 깊은 다크 네이비 스페이스 조성 */
-            background: linear-gradient(180deg, #020617 0%, #0F172A 100%);
-            border-radius: 28px; border: 1px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 20px 45px rgba(2, 6, 23, 0.3), inset 0 0 80px rgba(2, 132, 199, 0.3);
+            /* 메인 흰색 배경과 어우러지는 투명하고 밝은 유리 질감 배경 */
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(10px);
+            border-radius: 28px; border: 1px solid rgba(14, 165, 233, 0.25);
+            box-shadow: 0 15px 40px rgba(2, 132, 199, 0.08), inset 0 0 30px rgba(14, 165, 233, 0.1);
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
-        /* 디지털 사이버 격자망 */
+        /* 밝고 청량한 디지털 사이버 격자망 */
         .hologram-stage::before {
             content: ""; position: absolute; inset: 0;
             background-image: 
-                linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px), 
-                linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px; pointer-events: none; opacity: 0.8;
+                linear-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px; pointer-events: none;
         }
 
-        /* 3D 레이저 볼류메트릭 빛 (프로젝터 효과) */
+        /* 부드러운 라이트 블루 프로젝터 광원 */
         .volumetric-beam {
             position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 90%; height: 80%;
-            background: linear-gradient(to top, rgba(2, 132, 199, 0.7) 0%, rgba(56, 189, 248, 0.1) 60%, transparent 100%);
+            width: 85%; height: 75%;
+            background: linear-gradient(to top, rgba(14, 165, 233, 0.15) 0%, rgba(56, 189, 248, 0.03) 60%, transparent 100%);
             clip-path: polygon(20% 100%, 80% 100%, 100% 0%, 0% 0%);
-            pointer-events: none; z-index: 1; mix-blend-mode: screen;
+            pointer-events: none; z-index: 1;
             animation: beamPulse 4s infinite alternate ease-in-out;
         }
         .projector-base {
             position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-            width: 250px; height: 12px; 
-            background: linear-gradient(90deg, #0F172A, #94A3B8, #0F172A);
-            border-radius: 10px; border: 1px solid #38BDF8;
-            box-shadow: 0 -5px 35px #0EA5E9, 0 5px 15px rgba(0,0,0,0.8); z-index: 3;
+            width: 250px; height: 10px; 
+            background: linear-gradient(90deg, #E2E8F0, #FFFFFF, #E2E8F0);
+            border-radius: 10px; border: 1px solid #BAE6FD;
+            box-shadow: 0 -5px 25px rgba(14, 165, 233, 0.3), 0 5px 15px rgba(15, 23, 42, 0.05); z-index: 3;
         }
-        @keyframes beamPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+        @keyframes beamPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* 홀로그램 SVG 지도 본체 */
+        /* 실사 고해상도 세계지도 (안정적인 위키미디어 SVG 이미지 활용) */
         .world-map-svg {
-            width: 95%; height: 92%; z-index: 2;
-            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
-            animation: floatMap 6s ease-in-out infinite;
+            width: 90%; height: 85%; z-index: 2; object-fit: contain;
+            /* 실제 지도를 밝고 영롱한 시안(Cyan) 홀로그램으로 바꾸는 CSS 마법 */
+            filter: invert(55%) sepia(100%) saturate(400%) hue-rotate(165deg) brightness(1.05) drop-shadow(0 0 10px rgba(14, 165, 233, 0.3));
+            animation: floatMap 6s ease-in-out infinite; opacity: 0.8;
         }
-        .map-path {
-            fill: rgba(14, 165, 233, 0.15); /* 반투명한 전자 점막 느낌 */
-            stroke: #38BDF8; /* 선명한 네온 윤곽선 */
-            stroke-width: 0.8;
-            vector-effect: non-scaling-stroke;
-            transition: 0.3s;
-        }
-        .map-path:hover { fill: rgba(56, 189, 248, 0.3); stroke: #BAE6FD; stroke-width: 1.2; filter: drop-shadow(0 0 5px #BAE6FD); }
-        
-        /* 대륙 간 데이터 통신 점선 (애니메이션) */
-        .network-line {
-            fill: none; stroke: #BAE6FD; stroke-width: 1.5;
-            stroke-dasharray: 4 8; opacity: 0.6;
-            animation: dashFlow 30s linear infinite;
-        }
-        
-        /* 각 허브 빛나는 노드 포인트 */
-        .glowing-node {
-            fill: #FFFFFF; filter: drop-shadow(0 0 8px #FFFFFF);
-            animation: pulseNode 2s infinite alternate;
-        }
-
         @keyframes floatMap { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
-        @keyframes dashFlow { to { stroke-dashoffset: -400; } }
-        @keyframes pulseNode { 0% { r: 3; opacity: 0.6; } 100% { r: 5; opacity: 1; } }
 
         /* 📍 사이버네틱 핀(Pin) 클러스터 */
         .region-cluster { position: absolute; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
         .region-label {
-            font-size: 0.75rem; font-weight: 800; color: #BAE6FD;
-            background: rgba(15, 23, 42, 0.8); padding: 4px 12px;
-            border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.5);
-            width: fit-content; letter-spacing: 1px; box-shadow: 0 0 10px rgba(14, 165, 233, 0.4); margin-bottom: 2px;
+            font-size: 0.75rem; font-weight: 800; color: #0284C7;
+            background: rgba(255, 255, 255, 0.9); padding: 4px 12px;
+            border-radius: 20px; border: 1px solid rgba(14, 165, 233, 0.4);
+            width: fit-content; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1); margin-bottom: 2px;
         }
 
-        .cluster-na { top: 22%; left: 16%; }
-        .cluster-eu { top: 18%; left: 47%; }
-        .cluster-kr { top: 32%; right: 14%; }
+        /* 실제 지도 비율에 맞춘 핀 위치 재조정 */
+        .cluster-na { top: 22%; left: 18%; }
+        .cluster-eu { top: 20%; left: 47%; }
+        .cluster-kr { top: 35%; right: 15%; }
 
-        /* 라이트한 글래스모피즘 핀 (어두운 지도 위에서 화사하게 빛남) */
+        /* 밝은 테마에 맞춘 깔끔한 핀 디자인 */
         .media-pin {
             display: flex; align-items: center; gap: 8px;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
-            padding: 9px 15px; border-radius: 14px; border: 1.5px solid #38BDF8;
-            color: #0F172A; text-decoration: none; font-size: 0.88rem; font-weight: 800;
-            box-shadow: 0 5px 20px rgba(2, 132, 199, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
+            background: #FFFFFF; padding: 9px 15px; border-radius: 14px;
+            border: 1.5px solid #38BDF8; color: #0F172A; text-decoration: none;
+            font-size: 0.88rem; font-weight: 800;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.15);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; white-space: nowrap;
         }
         .media-pin:hover {
-            transform: translateY(-4px) scale(1.05); background: #FFFFFF;
-            color: #0369A1; border-color: #0284C7; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.6);
+            transform: translateY(-4px) scale(1.05); background: #0284C7;
+            color: #FFFFFF; border-color: #0369A1; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.35);
         }
         .pin-emoji { font-size: 1.1rem; }
         .pin-dot {
@@ -208,7 +186,7 @@
             transform: translateX(-50%) translateY(5px); background: #0F172A; color: #F8FAFC;
             padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500;
             opacity: 0; pointer-events: none; transition: 0.2s; white-space: nowrap; border: 1px solid #38BDF8;
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
         }
         .media-pin:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -231,6 +209,7 @@
         <div class="intro-text-container">
             <span class="intro-welcome">Welcome to</span>
             <span class="intro-logo">DONNA</span>
+            <!-- 🚨 수정 완료: Open Legal Search Tool -->
             <span class="intro-desc">Open Legal Search Tool</span>
             <div class="intro-tagline">For Students</div>
         </div>
@@ -239,6 +218,7 @@
     <main class="dashboard-wrapper">
         <div class="brand-header">
             <h1>DONNA</h1>
+            <!-- 🚨 수정 완료: Open Legal Search Tool -->
             <div class="brand-subtitle">Open Legal Search Tool · <span>For Students</span></div>
         </div>
 
@@ -250,30 +230,13 @@
             <button class="search-btn" onclick="performMainSearch()">리서치</button>
         </div>
 
-        <!-- 🌍 사실적 전자 홀로그램 세계지도 스테이지 -->
+        <!-- 🌍 밝은 테마 기반의 실사 홀로그램 세계지도 스테이지 -->
         <div class="hologram-stage">
             <div class="volumetric-beam"></div>
             <div class="projector-base"></div>
 
-            <svg class="world-map-svg" viewBox="0 0 1008 650" xmlns="http://www.w3.org/2000/svg">
-                <!-- 글로벌 데이터 통신 네트워크 점선 -->
-                <path class="network-line" d="M 220 180 Q 360 90 490 150" />
-                <path class="network-line" d="M 490 150 Q 660 80 820 190" />
-                <path class="network-line" d="M 220 180 Q 520 280 820 190" />
-
-                <!-- 고해상도 홀로그램 대륙 점막 -->
-                <path class="map-path" d="M266.3,101.4c-6.2,3.3-15.1,10.6-20.9,13.6c-4.4,2.2-9.4,3.1-13.6,5.3c-4.1,2.1-9.9,6.7-14.5,8c-5.7,1.6-13.6,0.3-18.1,2.8c-3.1,1.7-5.5,5.1-7.8,7.8c-3,3.5-5.9,7.5-8,11.4c-2.4,4.4-4,10.2-5,15c-1,5.2-1,10.7-0.8,16.1c0.1,4.7-0.7,9.3-0.8,14.2c-0.2,9.3-2.1,19.2-3.1,28.6c-0.7,6.8-1,14.1-0.8,21.1c0.2,6.4,1.4,12.7,2.5,18.9c1,5.6,3.6,11.2,4.7,16.9c1.6,8.2,1,16.6,1.4,25c0.2,4.9,1,9.6,1.7,14.4c1,7,2.9,14.3,2.5,21.4c-0.3,5-2.2,9.5-2.2,14.4c0,4,1,7.9,1.4,11.9c0.7,7,0.7,14.1,2.8,20.8c2.4,7.6,7.7,14.1,11.7,21.1c3,5.3,4.9,11.1,7.2,16.6c1.7,4.1,4,7.8,6.1,11.7c2.3,4.3,4.3,9,7.5,12.8c3.2,3.8,7.8,6.5,12.5,8.9c4.9,2.5,10.1,4.5,15.3,6.4c5.1,1.9,10,4.4,15,6.4c5.6,2.2,11.6,3.6,17.5,5c6.5,1.5,13,2.9,19.7,3.6c5.8,0.6,11.7,1.2,17.5,2.5c6,1.4,12,3,17.8,5c4.7,1.6,9.2,3.7,14.2,4.7c5.1,1,10.7,0.7,15.8-0.3c6.1-1.2,11.7-4,17.2-6.7c5-2.5,9.4-5.9,14.2-8.6c5.2-2.9,10.9-4.8,16.4-7.2c5-2.2,9.9-4.7,15-6.7c4.7-1.8,9.7-3.1,14.4-4.7c4.4-1.5,8.8-3,13.3-4.2c4.8-1.3,10.2-1.9,14.7-4.2c3.5-1.8,6.3-4.7,9.2-7.5c2.9-2.8,5.4-6.1,7.8-9.4c2.5-3.5,4.3-7.5,6.7-10.8c2.5-3.5,5.7-6.5,8.6-9.7c3.1-3.4,5.9-7.1,8.9-10.6c3.2-3.8,6.8-7.3,10.3-10.8c4.2-4.2,8.6-8,13.3-11.7c4.2-3.3,8.6-6.4,13.1-9.4c4-2.7,8.2-5,12.5-7.2c4.8-2.5,10.1-4.2,15.3-6.1c5.2-1.9,10.5-3.5,15.8-5c5.3-1.5,10.7-2.9,16.1-3.9c5.6-1.1,11.2-1.9,16.9-2.5c6.1-0.6,12.3-1.1,18.3-2.2c5.3-1,10.5-2.6,15.6-4.4c5-1.8,9.9-4,14.7-6.4c4.6-2.3,9.1-5.1,13.3-8.3c4.2-3.2,8.3-6.5,12.2-10.3c3.8-3.7,7.1-8.1,10.3-12.5c3-4.2,5.6-8.8,7.8-13.6c1.9-4.2,3.3-8.8,4.2-13.3c0.9-4.5,1.2-9.2,0.8-13.9c-0.4-4.7-1.6-9.3-3.3-13.6c-2.1-5.3-5-10.2-8.3-14.7c-3.6-4.9-7.8-9.3-12.2-13.6c-4.4-4.3-9-8.4-13.9-12.2c-4.8-3.7-9.8-7.3-15.3-10c-5.7-2.8-12.1-4.7-18.3-5.8c-5.7-1-11.4-1.2-17.2-1.1c-5.3,0.1-10.6,0.6-15.8,1.4c-4.9,0.8-9.8,2-14.7,2.8c-5.4,0.9-10.9,1-16.4,1.4c-6.1,0.4-12.3,0.8-18.3,1.4c-6,0.6-12.1,0.6-18.1,1.1c-6,0.5-12,0.8-18.1,1.7c-5.5,0.8-10.9,2.4-16.1,4.2c-5.2,1.8-10.2,4.3-15.3,6.4c-5,2.1-9.9,4.4-15,6.1c-5.1,1.7-10.5,2.7-15.8,3.9c-5.3,1.2-10.7,2.1-16.1,3.3c-5.4,1.2-10.8,2.7-16.1,4.2c-5.2,1.5-10.4,3.3-15.6,5.3c-5,1.9-9.8,4-14.7,6.4c-4.7,2.3-9.3,4.9-13.9,7.5c-4.6,2.6-9.1,5.4-13.6,8.1c-4.3,2.6-8.5,5.4-12.8,8.1c-4.3,2.7-8.7,5.1-13.3,7.2c-4.8,2.2-9.9,4-15,5.3c-5,1.3-10.3,2-15.6,2.8c-5.3,0.8-10.6,1.4-16.1,1.4c-5.4,0-10.8-0.8-16.1-2.2c-5.1-1.3-9.9-3.2-14.7-5.6c-4.6-2.3-9.1-5.1-13.3-8.1c-4.4-3.1-8.5-6.6-12.2-10.6c-3.6-3.9-6.8-8.2-9.7-12.8c-2.8-4.4-5.2-9.1-7.2-13.9c-2.1-5.1-3.6-10.5-4.4-15.8c-0.8-5.3-1.1-10.8-0.8-16.1C264.4,113,265.1,107.1,266.3,101.4z"/>
-                <path class="map-path" d="M685.3,184.6c4.6-1.5,9.4-1.9,14.2-2.5c5.1-0.6,10.2-1.3,15.3-1.7c5.1-0.4,10.2-0.8,15.3-0.8c5.4,0,10.9,0.3,16.4,0.8c5.2,0.5,10.2,1.3,15.3,2.2c5.1,0.9,10.1,2,15.3,3.1c5.2,1.1,10.4,2.5,15.6,4.2c5,1.6,9.8,3.5,14.7,5.6c4.7,2,9.3,4.4,13.9,6.7c4.6,2.3,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.7,2.4,9.4,4.9,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2"/>
-                <path class="map-path" d="M850,220 L860,235 L855,250 L840,245 Z" />
-                <path class="map-path" d="M880,240 L895,260 L885,280 L860,270 Z" />
-                <path class="map-path" d="M830,420 c10,-5 20,-10 30,-5 c10,5 15,15 25,20 c10,5 25,5 35,0 c10,-5 15,-15 20,-25 c5,-10 0,-25 -10,-35 c-10,-10 -25,-15 -40,-10 c-15,5 -25,15 -35,25 c-10,10 -15,25 -25,30 Z"/>
-                <path class="map-path" d="M460,170 c2,-5 5,-10 10,-12 c5,-2 10,0 12,5 c2,5 0,10 -5,12 c-5,2 -10,0 -12,-5 Z"/>
-                
-                <!-- 글로잉 데이터 노드 (빛나는 거점) -->
-                <circle cx="220" cy="180" r="3" class="glowing-node" />
-                <circle cx="490" cy="150" r="3" class="glowing-node" />
-                <circle cx="820" cy="190" r="3" class="glowing-node" />
-            </svg>
+            <!-- 🚨 왜곡 해결: 공신력 있는 고해상도 외부 실사 세계지도 SVG 이미지 불러오기 -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" class="world-map-svg" alt="Holographic World Map">
 
             <!-- 🇺🇸 북미 핀 클러스터 -->
             <div class="region-cluster cluster-na">
