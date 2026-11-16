@@ -5,64 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DONNA - Legal Compliance Intelligence</title>
     
+    <!-- 파비콘 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+    <!-- DONNA 단어장 연동 -->
     <script src="donna_db.js"></script>
     
     <style>
-        body { background-color: #05080F; color: #E2E8F0; font-family: 'Pretendard', 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; height: 100vh; box-sizing: border-box; display: flex; gap: 20px; overflow: hidden; }
+        /* 🌤️ 클린 에어로 라이트(Clean Aero Light) 테마 기본 설정 */
+        * { box-sizing: border-box; }
+        body {
+            background: radial-gradient(circle at 50% 20%, #FFFFFF 0%, #EAF4FC 55%, #D4E8FA 100%);
+            color: #0F172A;
+            font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 10px; }
-        
-        /* 🎬 시네마틱 모션 그래픽 인트로 */
+        ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 10px; }
+
+        /* 🎬 라이트 홀로그램 시네마틱 인트로 */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #05080F; z-index: 9999;
+            background: radial-gradient(circle at center, #FFFFFF 0%, #E0F2FE 100%);
+            z-index: 9999;
             display: flex; justify-content: center; align-items: center;
             flex-direction: column;
-            animation: introZoomOut 5.2s cubic-bezier(0.8, 0, 0.2, 1) forwards; 
+            animation: introZoomOut 5.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
         }
-        
         .motion-ring {
             position: absolute;
-            width: 150px; height: 150px;
+            width: 160px; height: 160px;
             border-radius: 50%;
             border: 2px solid transparent;
-            border-top: 2px solid #BFAA71;
-            border-bottom: 2px solid #4F8AFF;
-            box-shadow: 0 0 20px rgba(191,170,113,0.2), inset 0 0 20px rgba(79,138,255,0.2);
+            border-top: 3px solid #0284C7;
+            border-bottom: 3px solid #38BDF8;
+            box-shadow: 0 0 25px rgba(2, 132, 199, 0.25), inset 0 0 25px rgba(56, 189, 248, 0.25);
             animation: spinRing 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
             opacity: 0;
         }
-
         .intro-text-container {
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
-            z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 2;
         }
-        
-        .intro-welcome { 
-            font-size: 1.5rem; color: #94A3B8; letter-spacing: 2px; font-weight: 300; 
-            opacity: 0; animation: textFadeUp 0.8s ease forwards 0.8s; 
+        .intro-welcome {
+            font-size: 1.5rem; color: #64748B; letter-spacing: 2px; font-weight: 400;
+            opacity: 0; animation: textFadeUp 0.8s ease forwards 0.8s;
         }
-        
-        .intro-logo { 
-            font-size: 5rem; color: transparent; background: linear-gradient(90deg, #BFAA71, #FDF5A9); 
-            -webkit-background-clip: text; font-weight: 900; 
+        .intro-logo {
+            font-size: 5rem; color: transparent;
+            background: linear-gradient(90deg, #0F172A, #0284C7, #0EA5E9);
+            -webkit-background-clip: text; font-weight: 900;
             animation: logoFocus 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards 1s;
             opacity: 0; letter-spacing: 30px; filter: blur(10px);
         }
-        
-        .intro-desc { 
-            font-size: 1.2rem; letter-spacing: 6px; font-weight: 400; text-transform: uppercase; 
-            opacity: 0; animation: textFadeUp 0.8s ease forwards 1.6s, shimmer 3s infinite linear 1.8s;
-            background: linear-gradient(90deg, transparent, #4F8AFF, transparent);
-            background-size: 200% 100%; -webkit-background-clip: text; color: transparent;
+        .intro-desc {
+            font-size: 1.2rem; letter-spacing: 6px; font-weight: 600; text-transform: uppercase;
+            opacity: 0; animation: textFadeUp 0.8s ease forwards 1.6s;
+            color: #0369A1;
         }
-
-        /* 🎓 정체성 문구 - 가볍고 세련된 팝인(Pop-in) 모션 */
         .intro-tagline {
-            font-size: 1.3rem; color: #BFAA71; letter-spacing: 5px; font-weight: 600; text-transform: uppercase;
-            margin-top: 15px;
-            opacity: 0;
+            font-size: 1.25rem; color: #0284C7; letter-spacing: 5px; font-weight: 700; text-transform: uppercase;
+            margin-top: 15px; opacity: 0;
             animation: elegantPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.4s;
         }
 
@@ -77,64 +85,317 @@
         }
         @keyframes textFadeUp {
             0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); color: #E2E8F0; }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            100% { opacity: 1; transform: translateY(0); }
         }
         @keyframes elegantPop {
             0% { opacity: 0; transform: scale(0.8) translateY(15px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); text-shadow: 0 0 15px rgba(191,170,113,0.4); }
+            100% { opacity: 1; transform: scale(1) translateY(0); text-shadow: 0 4px 15px rgba(2, 132, 199, 0.25); }
         }
-
         @keyframes introZoomOut {
             0% { transform: scale(1); opacity: 1; visibility: visible; }
             90% { transform: scale(1); opacity: 1; visibility: visible; filter: blur(0); }
-            100% { transform: scale(2.5); opacity: 0; visibility: hidden; filter: blur(10px); display: none; }
+            100% { transform: scale(2.2); opacity: 0; visibility: hidden; filter: blur(10px); display: none; }
         }
 
-        /* 메인 UI 스타일 */
-        .news-sidebar { width: 380px; background: linear-gradient(145deg, #0F172A, #0B111A); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px; display: flex; flex-direction: column; box-shadow: 0 20px 40px rgba(0,0,0,0.4); z-index: 50; }
-        .news-header { font-size: 1.2rem; font-weight: bold; color: #BFAA71; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; letter-spacing: 0.5px; }
-        .nl-search-wrapper { position: relative; width: 100%; margin-bottom: 25px; }
-        .nl-search-box { display: flex; background: #162032; border-radius: 12px; border: 1px solid rgba(191,170,113,0.2); overflow: hidden; transition: 0.3s; }
-        .nl-search-box:focus-within { border-color: #BFAA71; box-shadow: 0 0 15px rgba(191,170,113,0.15); }
-        .nl-search-box input { flex: 1; padding: 15px; border: none; background: transparent; color: #F8FAFC; outline: none; }
-        .nl-search-box button { padding: 0 20px; background: rgba(191,170,113,0.1); border: none; border-left: 1px solid rgba(191,170,113,0.2); color: #BFAA71; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .nl-search-box button:hover { background: #BFAA71; color: #0B111A; }
-        .nl-autocomplete-list { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15,23,42,0.95); backdrop-filter: blur(10px); border: 1px solid #BFAA71; border-radius: 12px; z-index: 1000; max-height: 250px; overflow-y: auto; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 8px; }
-        .nl-autocomplete-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
-        .nl-autocomplete-item:hover { background: rgba(191,170,113,0.1); color: #BFAA71; }
-        .news-results { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-right: 5px; }
-        .news-card { background: #131C2D; border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 20px; transition: 0.3s; }
-        .news-card:hover { transform: translateY(-3px); border-color: rgba(191,170,113,0.3); background: #162238; }
-        .news-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; margin-bottom: 12px; color: #fff; background: rgba(255,255,255,0.1); }
-        .news-title { font-size: 0.95rem; font-weight: 600; line-height: 1.5; margin-bottom: 15px; }
-        .news-link { display: inline-block; color: #0B111A; background: #BFAA71; text-decoration: none; padding: 8px 15px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
-        .news-link:hover { box-shadow: 0 0 15px rgba(191,170,113,0.4); }
+        /* 🖥️ 통합 메인 대시보드 컨테이너 */
+        .dashboard-wrapper {
+            width: 100%;
+            max-width: 1320px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 32px;
+            padding: 40px 40px 35px 40px;
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(14, 165, 233, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
 
-        .main-content { flex: 1; background: linear-gradient(145deg, #0F172A, #080D16); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow-y: auto; }
-        h1 { font-size: 4rem; margin-bottom: 2.5rem; letter-spacing: 8px; color: transparent; background: linear-gradient(90deg, #BFAA71, #FDF5A9); -webkit-background-clip: text; font-weight: 900; text-shadow: 0 10px 30px rgba(191,170,113,0.2); }
-        .search-container { width: 100%; max-width: 750px; display: flex; position: relative; border-radius: 20px; background: #162032; border: 1px solid rgba(191,170,113,0.3); box-shadow: 0 15px 40px rgba(0,0,0,0.4); transition: 0.3s; z-index: 100; }
-        .search-container:focus-within { box-shadow: 0 0 40px rgba(191,170,113,0.25); border-color: #BFAA71; }
+        /* 상단 타이틀 영역 */
+        .brand-header { text-align: center; margin-bottom: 24px; }
+        h1 {
+            font-size: 3.6rem;
+            margin: 0 0 8px 0;
+            letter-spacing: 10px;
+            color: transparent;
+            background: linear-gradient(135deg, #0F172A 0%, #0369A1 60%, #0EA5E9 100%);
+            -webkit-background-clip: text;
+            font-weight: 900;
+            text-shadow: 0 8px 25px rgba(2, 132, 199, 0.12);
+        }
+        .brand-subtitle {
+            font-size: 0.95rem;
+            color: #475569;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .brand-subtitle span { color: #0284C7; font-weight: 800; }
+
+        /* 🔍 중앙 통합 검색창 */
+        .search-container {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            position: relative;
+            border-radius: 20px;
+            background: #FFFFFF;
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
+            transition: 0.3s;
+            z-index: 200;
+            margin-bottom: 30px;
+        }
+        .search-container:focus-within {
+            box-shadow: 0 15px 40px rgba(2, 132, 199, 0.22);
+            border-color: #0284C7;
+            transform: translateY(-2px);
+        }
         .input-wrapper { flex: 1; position: relative; display: flex; }
-        .search-box { flex: 1; padding: 22px 35px; font-size: 1.25rem; border: none; background: transparent; color: #F8FAFC; outline: none; border-radius: 20px 0 0 20px; letter-spacing: 0.5px; }
-        .search-btn { padding: 0 45px; font-size: 1.15rem; border: none; border-radius: 0 20px 20px 0; background: linear-gradient(145deg, #BFAA71, #D4C391); color: #0B111A; cursor: pointer; font-weight: 800; transition: 0.3s; }
-        .search-btn:hover { background: #FDF5A9; box-shadow: 0 0 20px rgba(191,170,113,0.5); }
-        .autocomplete-list { position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,23,42,0.95); backdrop-filter: blur(15px); border: 1px solid #BFAA71; border-radius: 16px; z-index: 1000; max-height: 300px; overflow-y: auto; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-top: 15px; }
-        .autocomplete-item { padding: 18px 35px; cursor: pointer; color: #E2E8F0; display: flex; align-items: center; gap: 15px; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .autocomplete-item:hover { background: rgba(191,170,113,0.1); color: #BFAA71; }
-        
-        .center-globe-wrapper { position: relative; width: 100%; max-width: 450px; aspect-ratio: 1 / 1; display: flex; justify-content: center; align-items: center; z-index: 10; margin-top: 3.5rem; }
-        .center-globe-image { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; animation: floatGiantGlobe 8s ease-in-out infinite, pulseGiantGlow 5s alternate infinite; opacity: 0.9; }
+        .search-box {
+            flex: 1; padding: 20px 30px; font-size: 1.15rem; border: none;
+            background: transparent; color: #0F172A; outline: none;
+            border-radius: 20px 0 0 20px; letter-spacing: 0.5px;
+        }
+        .search-box::placeholder { color: #94A3B8; }
+        .search-btn {
+            padding: 0 42px; font-size: 1.1rem; border: none;
+            border-radius: 0 18px 18px 0;
+            background: linear-gradient(135deg, #0284C7, #0EA5E9);
+            color: #FFFFFF; cursor: pointer; font-weight: 800; transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .search-btn:hover {
+            background: linear-gradient(135deg, #0369A1, #0284C7);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+        }
 
-        @keyframes floatGiantGlobe { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        @keyframes pulseGiantGlow { 0% { filter: drop-shadow(0 0 20px rgba(79, 138, 255, 0.2)); } 100% { filter: drop-shadow(0 0 60px rgba(79, 138, 255, 0.6)); } }
+        /* 자동완성 리스트 (자간 찢어짐 방지 유지) */
+        .autocomplete-list {
+            position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px);
+            border: 1px solid #38BDF8; border-radius: 16px; z-index: 1000;
+            max-height: 280px; overflow-y: auto; display: none;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+        }
+        .autocomplete-item {
+            padding: 15px 30px; cursor: pointer; color: #1E293B;
+            display: flex; align-items: center; gap: 12px; font-size: 1.05rem;
+            border-bottom: 1px solid #F1F5F9; transition: 0.2s;
+        }
+        .autocomplete-item:hover { background: #F0F9FF; color: #0284C7; }
+
+        /* 🗺️ 홀로그램 평면 세계지도 스테이지 */
+        .hologram-stage {
+            position: relative;
+            width: 100%;
+            max-width: 1140px;
+            aspect-ratio: 16 / 8.2;
+            background: linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 50%, #E0F2FE 100%);
+            border-radius: 28px;
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            box-shadow: inset 0 0 60px rgba(2, 132, 199, 0.15), 0 20px 45px rgba(2, 132, 199, 0.12);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 홀로그램 격자(Grid) 배경 효과 */
+        .hologram-stage::before {
+            content: "";
+            position: absolute; inset: 0;
+            background-image: 
+                linear-gradient(rgba(2, 132, 199, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* 하단 홀로그램 프로젝터 광원 효과 */
+        .hologram-beam {
+            position: absolute;
+            bottom: -30px; left: 50%;
+            transform: translateX(-50%);
+            width: 75%; height: 65%;
+            background: radial-gradient(ellipse at bottom, rgba(56, 189, 248, 0.45) 0%, rgba(14, 165, 233, 0.12) 50%, transparent 80%);
+            clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+            pointer-events: none;
+            z-index: 1;
+            animation: beamPulse 4s ease-in-out infinite alternate;
+        }
+        .projector-base {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 240px; height: 12px;
+            background: linear-gradient(90deg, #94A3B8, #FFFFFF, #94A3B8);
+            border-radius: 20px;
+            box-shadow: 0 -4px 25px #00D2FF, 0 4px 15px rgba(15, 23, 42, 0.25);
+            z-index: 3;
+        }
+        @keyframes beamPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* 홀로그램 세계지도 SVG 스타일 */
+        .world-map-svg {
+            width: 95%;
+            height: 92%;
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(2, 132, 199, 0.35));
+            animation: floatMap 6s ease-in-out infinite;
+        }
+        .continent {
+            fill: rgba(2, 132, 199, 0.28);
+            stroke: #0284C7;
+            stroke-width: 2;
+            stroke-linejoin: round;
+            transition: 0.3s;
+        }
+        .continent:hover {
+            fill: rgba(14, 165, 233, 0.45);
+            stroke: #0077B6;
+        }
+        .network-line {
+            fill: none;
+            stroke: #0284C7;
+            stroke-width: 1.5;
+            stroke-dasharray: 6 6;
+            opacity: 0.55;
+            animation: dashFlow 20s linear infinite;
+        }
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -200; }
+        }
+        @keyframes floatMap {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* 📍 대륙별 오픈 법률 미디어 인터랙티브 핀(Pin) 클러스터 */
+        .region-cluster {
+            position: absolute;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .region-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #0369A1;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            width: fit-content;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+            margin-bottom: 2px;
+        }
+
+        /* 대륙별 좌표 배치 */
+        .cluster-na { top: 20%; left: 10%; }     /* 북미 (미국) */
+        .cluster-eu { top: 18%; left: 43%; }     /* 유럽 / 영국 */
+        .cluster-kr { top: 22%; right: 9%; }     /* 동아시아 (한국) */
+
+        /* 개별 미디어 핀 버튼 */
+        .media-pin {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 9px 15px;
+            border-radius: 14px;
+            border: 1.5px solid #38BDF8;
+            color: #0F172A;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            white-space: nowrap;
+        }
+        .media-pin:hover {
+            transform: translateY(-4px) scale(1.04);
+            background: #0284C7;
+            color: #FFFFFF;
+            border-color: #0369A1;
+            box-shadow: 0 12px 25px rgba(2, 132, 199, 0.35);
+        }
+        .pin-emoji {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pin-dot {
+            width: 7px; height: 7px;
+            background: #0EA5E9;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #0EA5E9;
+            animation: pulseDot 1.5s infinite alternate;
+        }
+        .media-pin:hover .pin-dot { background: #FFFFFF; box-shadow: 0 0 8px #FFFFFF; }
+
+        /* 호버 시 설명 툴팁 */
+        .media-pin::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.2s;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .media-pin:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.3); opacity: 1; }
+        }
+
+        /* 하단 안내 문구 */
+        .map-guide {
+            margin-top: 16px;
+            font-size: 0.88rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        .map-guide strong { color: #0284C7; }
+
+        /* 반응형 대응 */
+        @media (max-width: 960px) {
+            .hologram-stage { aspect-ratio: auto; min-height: 520px; flex-direction: column; padding: 20px; gap: 15px; }
+            .world-map-svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.45; }
+            .region-cluster { position: relative; top: auto !important; left: auto !important; right: auto !important; width: 100%; max-width: 320px; align-items: center; }
+        }
     </style>
 </head>
 <body>
-    
+
+    <!-- 🎬 시네마틱 인트로 (세션당 최초 1회 재생) -->
     <div id="intro-screen">
         <div class="motion-ring"></div>
         <div class="intro-text-container">
@@ -145,94 +406,180 @@
         </div>
     </div>
 
-    <aside class="news-sidebar">
-        <div class="news-header">📰 법률 뉴스레터</div>
-        <div class="nl-search-wrapper">
-            <div class="nl-search-box">
-                <input type="text" id="newsletterInput" placeholder="예: 부동산 규제, AI Act" autocomplete="off" onkeypress="if(event.key === 'Enter') searchNewsletter()">
-                <button onclick="searchNewsletter()">검색</button>
-            </div>
-            <div id="nlAutocompleteList" class="nl-autocomplete-list"></div>
+    <!-- 🖥️ 단일 통합 메인 대시보드 -->
+    <main class="dashboard-wrapper">
+        <div class="brand-header">
+            <h1>DONNA</h1>
+            <div class="brand-subtitle">Global Open Legal Intelligence · <span>For Students</span></div>
         </div>
-        <div class="news-results" id="newsletterResults">
-            <div style="color:#64748B; font-size:0.9rem; text-align:center; margin-top:50px; line-height:1.6;">관심 키워드를 검색하면<br>국내외 Top 리서치 기관 자료를<br>동시에 찾아드립니다.</div>
-        </div>
-    </aside>
 
-    <main class="main-content">
-        <h1>DONNA</h1>
+        <!-- 중앙 검색바 -->
         <div class="search-container">
             <div class="input-wrapper">
-                <input type="text" id="searchInput" class="search-box" placeholder="법령, 판례, 규제 동향 통합 리서치" autocomplete="off" onkeypress="if(event.key === 'Enter') performMainSearch()">
+                <input type="text" id="searchInput" class="search-box" placeholder="법령, 판례, 글로벌 규제 동향 통합 리서치 (예: AI Act, ESG, 중대재해)" autocomplete="off" onkeypress="if(event.key === 'Enter') performMainSearch()">
                 <div id="autocompleteList" class="autocomplete-list"></div>
             </div>
             <button class="search-btn" onclick="performMainSearch()">리서치</button>
         </div>
-        <div class="center-globe-wrapper">
-            <img src="globe.png" alt="Global Compliance Network" class="center-globe-image">
+
+        <!-- 🌍 홀로그램 평면 세계지도 & 오픈 법률 미디어 핀 스테이지 -->
+        <div class="hologram-stage">
+            <!-- 홀로그램 광원 및 프로젝터 베이스 -->
+            <div class="hologram-beam"></div>
+            <div class="projector-base"></div>
+
+            <!-- 내장형 홀로그램 평면 세계지도 (SVG) -->
+            <svg class="world-map-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                <!-- 대륙 간 글로벌 법률 네트워크 연결선 -->
+                <path class="network-line" d="M 220 180 Q 360 90 490 150" />
+                <path class="network-line" d="M 490 150 Q 660 80 820 190" />
+                <path class="network-line" d="M 220 180 Q 520 280 820 190" />
+
+                <!-- 북아메리카 -->
+                <path class="continent" d="M 70 85 L 140 70 L 230 75 L 305 110 L 290 155 L 250 195 L 220 235 L 185 245 L 155 210 L 125 180 L 95 140 Z" />
+                <!-- 그린란드 -->
+                <path class="continent" d="M 320 45 L 395 40 L 410 80 L 355 95 L 325 75 Z" />
+                <!-- 남아메리카 -->
+                <path class="continent" d="M 245 265 L 305 275 L 345 320 L 330 385 L 295 445 L 270 435 L 260 365 L 235 310 Z" />
+                <!-- 유럽 -->
+                <path class="continent" d="M 445 165 L 440 125 L 475 85 L 535 75 L 575 100 L 570 145 L 540 170 L 485 175 Z" />
+                <!-- 아프리카 -->
+                <path class="continent" d="M 445 195 L 515 190 L 575 215 L 595 275 L 565 355 L 525 405 L 490 385 L 475 315 L 435 255 Z" />
+                <!-- 아시아 (유라시아 동부) -->
+                <path class="continent" d="M 575 100 L 665 75 L 785 80 L 895 110 L 875 175 L 835 235 L 765 265 L 705 275 L 655 235 L 595 195 L 570 145 Z" />
+                <!-- 한반도 & 일본 디테일 포인트 -->
+                <path class="continent" d="M 815 175 L 835 165 L 848 188 L 830 205 Z" />
+                <!-- 오세아니아 (호주) -->
+                <path class="continent" d="M 760 335 L 845 330 L 880 370 L 860 415 L 785 415 L 750 380 Z" />
+
+                <!-- 대륙 거점 홀로그램 코어 링 -->
+                <circle cx="200" cy="165" r="6" fill="#0284C7" />
+                <circle cx="200" cy="165" r="14" fill="none" stroke="#0284C7" stroke-width="1.5" opacity="0.6" />
+                <circle cx="505" cy="140" r="6" fill="#0284C7" />
+                <circle cx="505" cy="140" r="14" fill="none" stroke="#0284C7" stroke-width="1.5" opacity="0.6" />
+                <circle cx="825" cy="185" r="6" fill="#0284C7" />
+                <circle cx="825" cy="185" r="14" fill="none" stroke="#0284C7" stroke-width="1.5" opacity="0.6" />
+            </svg>
+
+            <!-- 🇺🇸 북미 오픈 법률 미디어 핀 -->
+            <div class="region-cluster cluster-na">
+                <div class="region-label">📍 NORTH AMERICA (OPEN ACCESS)</div>
+                <a href="https://www.natlawreview.com/" target="_blank" class="media-pin" data-tooltip="미국 최대 무료 법률·규제 분석 아티클 허브">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">🏛️</span>
+                    <span>National Law Review ↗</span>
+                </a>
+                <a href="https://www.jurist.org/" target="_blank" class="media-pin" data-tooltip="피츠버그 로스쿨 기반 글로벌 법학도·학자 오픈 뉴스">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">🎓</span>
+                    <span>JURIST Legal News ↗</span>
+                </a>
+                <a href="https://www.courthousenews.com/" target="_blank" class="media-pin" data-tooltip="미국 연방·주 법원 최신 소송 및 판결 무료 속보">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">⚖️</span>
+                    <span>Courthouse News ↗</span>
+                </a>
+            </div>
+
+            <!-- 🇬🇧/🇪🇺 유럽 오픈 법률 미디어 핀 -->
+            <div class="region-cluster cluster-eu">
+                <div class="region-label">📍 EUROPE & UK (OPEN ACCESS)</div>
+                <a href="https://www.lawgazette.co.uk/" target="_blank" class="media-pin" data-tooltip="영국 변호사회(Law Society) 공식 무료 법률 저널">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">🇬🇧</span>
+                    <span>Law Society Gazette ↗</span>
+                </a>
+                <a href="https://europeanlawblog.eu/" target="_blank" class="media-pin" data-tooltip="EU AI Act·GDPR 등 유럽연합 법령·판례 오픈 블로그">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">🇪🇺</span>
+                    <span>European Law Blog ↗</span>
+                </a>
+            </div>
+
+            <!-- 🇰🇷 대한민국 오픈 법률 미디어 핀 -->
+            <div class="region-cluster cluster-kr">
+                <div class="region-label">📍 KOREA (OPEN ACCESS)</div>
+                <a href="https://www.lawtimes.co.kr/" target="_blank" class="media-pin" data-tooltip="대한민국 대표 법조 정론지 법률신문">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">📰</span>
+                    <span>법률신문 (Lawtimes) ↗</span>
+                </a>
+                <a href="https://www.legaltimes.co.kr/" target="_blank" class="media-pin" data-tooltip="기업법무 및 국내외 로펌 동향 전문 리걸타임즈">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">⚖️</span>
+                    <span>리걸타임즈 (Legal Times) ↗</span>
+                </a>
+                <a href="https://www.korea.kr/" target="_blank" class="media-pin" data-tooltip="대한민국 각 정부부처 공식 보도자료 및 정책브리핑">
+                    <span class="pin-dot"></span>
+                    <span class="pin-emoji">🏛️</span>
+                    <span>정부 공식 정책브리핑 ↗</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="map-guide">
+            💡 세계지도 위의 <strong>각 대륙별 미디어 핀(Pin)</strong>을 클릭하면 유료 구독 없이 열람 가능한 공식 사이트로 즉시 이동합니다.
         </div>
     </main>
 
     <script>
+        // 🎬 인트로 화면 1회 재생 로직
         document.addEventListener('DOMContentLoaded', () => {
             const introScreen = document.getElementById('intro-screen');
             if (!sessionStorage.getItem('donnaIntroPlayed')) {
                 setTimeout(() => {
                     introScreen.style.display = 'none';
                     sessionStorage.setItem('donnaIntroPlayed', 'true');
-                }, 5200); 
+                }, 5200);
             } else {
                 introScreen.style.display = 'none';
             }
         });
 
-        function searchNewsletter() {
-            const q = document.getElementById('newsletterInput').value;
-            if (!q.trim()) return;
-            const resultsDiv = document.getElementById('newsletterResults');
-            const encodedQ = encodeURIComponent(`"${q}"`); 
-            
-            // 🚨 Law360 카드가 추가되어 총 7개의 리서치 채널이 되었습니다!
-            resultsDiv.innerHTML = `
-                <div class="news-card"><span class="news-badge" style="background-color: #334155;">김·장/율촌/광장/태평양/세종</span><div class="news-title">국내 5대 로펌 '${q}' 뉴스레터</div><a href="https://www.google.com/search?q=site:kimchang.com+OR+site:yulchon.com+OR+site:shinkim.com+OR+site:bkl.co.kr+OR+site:leeko.com+${encodedQ}+뉴스레터" target="_blank" class="news-link">자료 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #475569; border: 1px solid #BFAA71;">Law.com (American Lawyer)</span><div class="news-title">Law.com '${q}' Insight</div><a href="https://www.google.com/search?q=site:law.com+${encodedQ}" target="_blank" class="news-link">Insight 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #475569; border: 1px solid #BFAA71;">Legal Week</span><div class="news-title">Legal Week '${q}' Insight</div><a href="https://www.google.com/search?q=site:legalweek.com+${encodedQ}" target="_blank" class="news-link">Insight 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #475569; border: 1px solid #BFAA71;">The Lawyer</span><div class="news-title">The Lawyer '${q}' Insight</div><a href="https://www.google.com/search?q=site:thelawyer.com+${encodedQ}" target="_blank" class="news-link">Insight 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #475569; border: 1px solid #BFAA71;">Law360</span><div class="news-title">Law360 '${q}' Insight</div><a href="https://www.google.com/search?q=site:law360.com+${encodedQ}" target="_blank" class="news-link">Insight 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #1E293B; border: 1px solid #475569;">법률신문 / 리걸타임즈</span><div class="news-title">법률 미디어 '${q}' 기사</div><a href="https://www.google.com/search?q=site:lawtimes.co.kr+OR+site:legaltimes.co.kr+${encodedQ}" target="_blank" class="news-link">기사 보기 ↗</a></div>
-                <div class="news-card"><span class="news-badge" style="background-color: #0F172A; border: 1px solid #BFAA71; color: #BFAA71;">대한민국 정부 · 각 부처</span><div class="news-title">정부 공식 '${q}' 보도자료</div><a href="https://www.google.com/search?q=site:go.kr+OR+site:korea.kr+${encodedQ}" target="_blank" class="news-link">공식 발표 ↗</a></div>
-            `;
-            document.getElementById('nlAutocompleteList').style.display = 'none';
-        }
-
+        // 🔍 검색어 자동완성 로직 (donna_db.js 연동)
         const searchInput = document.getElementById('searchInput');
         const autocompleteList = document.getElementById('autocompleteList');
-        const nlInput = document.getElementById('newsletterInput');
-        const nlAutocompleteList = document.getElementById('nlAutocompleteList');
 
-        function setupAutocomplete(inputElement, listElement, isMainSearch) {
+        function setupAutocomplete(inputElement, listElement) {
             inputElement.addEventListener('input', function() {
                 const val = this.value.toLowerCase();
-                listElement.innerHTML = ''; 
+                listElement.innerHTML = '';
                 if (!val) { listElement.style.display = 'none'; return; }
+
                 const filtered = legalKeywords.filter(k => k.toLowerCase().includes(val));
                 if (filtered.length > 0) {
                     listElement.style.display = 'block';
                     filtered.forEach(k => {
                         const d = document.createElement('div');
-                        d.className = isMainSearch ? 'autocomplete-item' : 'nl-autocomplete-item';
+                        d.className = 'autocomplete-item';
                         const regex = new RegExp("(" + val + ")", "gi");
-                        const highlightedText = k.replace(regex, "<strong style='color:#BFAA71;'>$1</strong>");
+                        const highlightedText = k.replace(regex, "<strong style='color:#0284C7;'>$1</strong>");
                         d.innerHTML = `<span style="opacity:0.7;">🔍</span> <span>${highlightedText}</span>`;
-                        d.onclick = () => { inputElement.value = k; listElement.style.display = 'none'; isMainSearch ? performMainSearch() : searchNewsletter(); };
+                        d.onclick = () => {
+                            inputElement.value = k;
+                            listElement.style.display = 'none';
+                            performMainSearch();
+                        };
                         listElement.appendChild(d);
                     });
-                } else { listElement.style.display = 'none'; }
+                } else {
+                    listElement.style.display = 'none';
+                }
             });
         }
-        if(typeof legalKeywords !== 'undefined') { setupAutocomplete(searchInput, autocompleteList, true); setupAutocomplete(nlInput, nlAutocompleteList, false); }
-        function performMainSearch() { const q = searchInput.value; if (q.trim()) window.location.href = 'search_results.html?q=' + encodeURIComponent(q); }
-        document.addEventListener('click', (e) => { if (e.target !== searchInput) autocompleteList.style.display = 'none'; if (e.target !== nlInput) nlAutocompleteList.style.display = 'none'; });
+
+        if (typeof legalKeywords !== 'undefined') {
+            setupAutocomplete(searchInput, autocompleteList);
+        }
+
+        function performMainSearch() {
+            const q = searchInput.value;
+            if (q.trim()) window.location.href = 'search_results.html?q=' + encodeURIComponent(q);
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target !== searchInput) autocompleteList.style.display = 'none';
+        });
     </script>
 </body>
 </html>
