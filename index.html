@@ -5,74 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DONNA - Open Legal Search Tool</title>
     
-    <!-- 파비콘 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
-    <!-- DONNA 단어장 연동 -->
     <script src="donna_db.js"></script>
     
     <style>
-        /* 🌤️ 클린 에어로 라이트(Clean Aero Light) 테마 */
+        /* 🌤️ 클린 에어로 라이트 테마 유지 */
         * { box-sizing: border-box; }
         body {
             background: radial-gradient(circle at 50% 20%, #FFFFFF 0%, #EAF4FC 55%, #D4E8FA 100%);
             color: #0F172A;
             font-family: 'Pretendard', 'Malgun Gothic', -apple-system, sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin: 0; padding: 20px; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             overflow-x: hidden;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 10px; }
 
-        /* 🎬 라이트 홀로그램 시네마틱 인트로 */
+        /* 🎬 인트로 스플래시 유지 */
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #FFFFFF 0%, #E0F2FE 100%);
-            z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            flex-direction: column;
+            z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;
             animation: introZoomOut 5.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
         }
         .motion-ring {
-            position: absolute;
-            width: 160px; height: 160px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top: 3px solid #0284C7;
-            border-bottom: 3px solid #38BDF8;
+            position: absolute; width: 160px; height: 160px; border-radius: 50%;
+            border: 2px solid transparent; border-top: 3px solid #0284C7; border-bottom: 3px solid #38BDF8;
             box-shadow: 0 0 25px rgba(2, 132, 199, 0.25), inset 0 0 25px rgba(56, 189, 248, 0.25);
-            animation: spinRing 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            opacity: 0;
+            animation: spinRing 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; opacity: 0;
         }
-        .intro-text-container {
-            display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 2;
-        }
-        .intro-welcome {
-            font-size: 1.5rem; color: #64748B; letter-spacing: 2px; font-weight: 400;
-            opacity: 0; animation: textFadeUp 0.8s ease forwards 0.8s;
-        }
+        .intro-text-container { display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 2; }
+        .intro-welcome { font-size: 1.5rem; color: #64748B; letter-spacing: 2px; font-weight: 400; opacity: 0; animation: textFadeUp 0.8s ease forwards 0.8s; }
         .intro-logo {
-            font-size: 5rem; color: transparent;
-            background: linear-gradient(90deg, #0F172A, #0284C7, #0EA5E9);
-            -webkit-background-clip: text; font-weight: 900;
-            animation: logoFocus 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards 1s;
+            font-size: 5rem; color: transparent; background: linear-gradient(90deg, #0F172A, #0284C7, #0EA5E9);
+            -webkit-background-clip: text; font-weight: 900; animation: logoFocus 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards 1s;
             opacity: 0; letter-spacing: 30px; filter: blur(10px);
         }
-        .intro-desc {
-            font-size: 1.2rem; letter-spacing: 6px; font-weight: 600; text-transform: uppercase;
-            opacity: 0; animation: textFadeUp 0.8s ease forwards 1.6s;
-            color: #0369A1;
-        }
-        .intro-tagline {
-            font-size: 1.25rem; color: #0284C7; letter-spacing: 5px; font-weight: 700; text-transform: uppercase;
-            margin-top: 15px; opacity: 0;
-            animation: elegantPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.4s;
-        }
+        .intro-desc { font-size: 1.2rem; letter-spacing: 6px; font-weight: 600; text-transform: uppercase; opacity: 0; animation: textFadeUp 0.8s ease forwards 1.6s; color: #0369A1; }
+        .intro-tagline { font-size: 1.25rem; color: #0284C7; letter-spacing: 5px; font-weight: 700; text-transform: uppercase; margin-top: 15px; opacity: 0; animation: elegantPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 2.4s; }
 
         @keyframes spinRing { 0% { transform: rotate(0deg) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: rotate(1080deg) scale(3); opacity: 0; } }
         @keyframes logoFocus { 0% { opacity: 0; letter-spacing: 40px; filter: blur(20px); transform: scale(1.2); } 100% { opacity: 1; letter-spacing: 12px; filter: blur(0px); transform: scale(1); } }
@@ -100,13 +71,11 @@
         .brand-subtitle { font-size: 0.95rem; color: #475569; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
         .brand-subtitle span { color: #0284C7; font-weight: 800; }
 
-        /* 🔍 검색창 */
+        /* 🔍 검색창 유지 */
         .search-container {
             width: 100%; max-width: 760px; display: flex; position: relative;
-            border-radius: 20px; background: #FFFFFF;
-            border: 2px solid rgba(14, 165, 233, 0.3);
-            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
-            transition: 0.3s; z-index: 200; margin-bottom: 30px;
+            border-radius: 20px; background: #FFFFFF; border: 2px solid rgba(14, 165, 233, 0.3);
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1); transition: 0.3s; z-index: 200; margin-bottom: 30px;
         }
         .search-container:focus-within { box-shadow: 0 15px 40px rgba(2, 132, 199, 0.22); border-color: #0284C7; transform: translateY(-2px); }
         .input-wrapper { flex: 1; position: relative; display: flex; }
@@ -130,97 +99,116 @@
             max-height: 280px; overflow-y: auto; display: none;
             box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
         }
-        .autocomplete-item {
-            padding: 15px 30px; cursor: pointer; color: #1E293B;
-            display: flex; align-items: center; gap: 12px; font-size: 1.05rem;
-            border-bottom: 1px solid #F1F5F9; transition: 0.2s;
-        }
+        .autocomplete-item { padding: 15px 30px; cursor: pointer; color: #1E293B; display: flex; align-items: center; gap: 12px; font-size: 1.05rem; border-bottom: 1px solid #F1F5F9; transition: 0.2s; }
         .autocomplete-item:hover { background: #F0F9FF; color: #0284C7; }
 
-        /* 🗺️ 홀로그램 평면 세계지도 (정밀 벡터 해상도) */
+        /* 🗺️ 사실적 전자 홀로그램 맵 스테이지 (여기가 핵심 변경 사항입니다!) */
         .hologram-stage {
-            position: relative; width: 100%; max-width: 1140px; aspect-ratio: 16 / 8.2;
-            background: linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 50%, #E0F2FE 100%);
-            border-radius: 28px; border: 1px solid rgba(56, 189, 248, 0.5);
-            box-shadow: inset 0 0 60px rgba(2, 132, 199, 0.15), 0 20px 45px rgba(2, 132, 199, 0.12);
+            position: relative; width: 100%; max-width: 1140px; aspect-ratio: 16 / 8;
+            /* 밝은 UI와 대비되어 홀로그램 빛이 돋보이도록 깊은 다크 네이비 스페이스 조성 */
+            background: linear-gradient(180deg, #020617 0%, #0F172A 100%);
+            border-radius: 28px; border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 45px rgba(2, 6, 23, 0.3), inset 0 0 80px rgba(2, 132, 199, 0.3);
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
+
+        /* 디지털 사이버 격자망 */
         .hologram-stage::before {
             content: ""; position: absolute; inset: 0;
-            background-image: linear-gradient(rgba(2, 132, 199, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
-            background-size: 40px 40px; pointer-events: none;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px; pointer-events: none; opacity: 0.8;
         }
-        .hologram-beam {
-            position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
-            width: 75%; height: 65%;
-            background: radial-gradient(ellipse at bottom, rgba(56, 189, 248, 0.45) 0%, rgba(14, 165, 233, 0.12) 50%, transparent 80%);
-            clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
-            pointer-events: none; z-index: 1; animation: beamPulse 4s ease-in-out infinite alternate;
+
+        /* 3D 레이저 볼류메트릭 빛 (프로젝터 효과) */
+        .volumetric-beam {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 90%; height: 80%;
+            background: linear-gradient(to top, rgba(2, 132, 199, 0.7) 0%, rgba(56, 189, 248, 0.1) 60%, transparent 100%);
+            clip-path: polygon(20% 100%, 80% 100%, 100% 0%, 0% 0%);
+            pointer-events: none; z-index: 1; mix-blend-mode: screen;
+            animation: beamPulse 4s infinite alternate ease-in-out;
         }
         .projector-base {
-            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-            width: 240px; height: 12px; background: linear-gradient(90deg, #94A3B8, #FFFFFF, #94A3B8);
-            border-radius: 20px; box-shadow: 0 -4px 25px #00D2FF, 0 4px 15px rgba(15, 23, 42, 0.25); z-index: 3;
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 250px; height: 12px; 
+            background: linear-gradient(90deg, #0F172A, #94A3B8, #0F172A);
+            border-radius: 10px; border: 1px solid #38BDF8;
+            box-shadow: 0 -5px 35px #0EA5E9, 0 5px 15px rgba(0,0,0,0.8); z-index: 3;
         }
-        @keyframes beamPulse { 0% { opacity: 0.7; } 100% { opacity: 1; } }
+        @keyframes beamPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        /* 정밀 지도 SVG 요소 */
+        /* 홀로그램 SVG 지도 본체 */
         .world-map-svg {
             width: 95%; height: 92%; z-index: 2;
-            filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.4));
+            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
             animation: floatMap 6s ease-in-out infinite;
         }
         .map-path {
-            fill: rgba(2, 132, 199, 0.2);
-            stroke: #0284C7;
+            fill: rgba(14, 165, 233, 0.15); /* 반투명한 전자 점막 느낌 */
+            stroke: #38BDF8; /* 선명한 네온 윤곽선 */
             stroke-width: 0.8;
-            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
             transition: 0.3s;
         }
-        .map-path:hover { fill: rgba(14, 165, 233, 0.4); stroke: #0077B6; stroke-width: 1.2; }
-        @keyframes floatMap { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+        .map-path:hover { fill: rgba(56, 189, 248, 0.3); stroke: #BAE6FD; stroke-width: 1.2; filter: drop-shadow(0 0 5px #BAE6FD); }
+        
+        /* 대륙 간 데이터 통신 점선 (애니메이션) */
+        .network-line {
+            fill: none; stroke: #BAE6FD; stroke-width: 1.5;
+            stroke-dasharray: 4 8; opacity: 0.6;
+            animation: dashFlow 30s linear infinite;
+        }
+        
+        /* 각 허브 빛나는 노드 포인트 */
+        .glowing-node {
+            fill: #FFFFFF; filter: drop-shadow(0 0 8px #FFFFFF);
+            animation: pulseNode 2s infinite alternate;
+        }
 
-        /* 📍 대륙별 인터랙티브 핀(Pin) 클러스터 (위치 재조정) */
+        @keyframes floatMap { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
+        @keyframes dashFlow { to { stroke-dashoffset: -400; } }
+        @keyframes pulseNode { 0% { r: 3; opacity: 0.6; } 100% { r: 5; opacity: 1; } }
+
+        /* 📍 사이버네틱 핀(Pin) 클러스터 */
         .region-cluster { position: absolute; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
         .region-label {
-            font-size: 0.75rem; font-weight: 800; color: #0369A1;
-            background: rgba(255, 255, 255, 0.85); padding: 4px 10px;
-            border-radius: 20px; border: 1px solid rgba(2, 132, 199, 0.3);
-            width: fit-content; letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1); margin-bottom: 2px;
+            font-size: 0.75rem; font-weight: 800; color: #BAE6FD;
+            background: rgba(15, 23, 42, 0.8); padding: 4px 12px;
+            border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.5);
+            width: fit-content; letter-spacing: 1px; box-shadow: 0 0 10px rgba(14, 165, 233, 0.4); margin-bottom: 2px;
         }
 
-        /* 뚜렷한 세계지도 좌표에 맞춘 위치 재설정 */
-        .cluster-na { top: 22%; left: 16%; }     /* 북미 */
-        .cluster-eu { top: 18%; left: 47%; }     /* 유럽 */
-        .cluster-kr { top: 32%; right: 14%; }    /* 한국/아시아 */
+        .cluster-na { top: 22%; left: 16%; }
+        .cluster-eu { top: 18%; left: 47%; }
+        .cluster-kr { top: 32%; right: 14%; }
 
+        /* 라이트한 글래스모피즘 핀 (어두운 지도 위에서 화사하게 빛남) */
         .media-pin {
             display: flex; align-items: center; gap: 8px;
-            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
             padding: 9px 15px; border-radius: 14px; border: 1.5px solid #38BDF8;
-            color: #0F172A; text-decoration: none; font-size: 0.88rem; font-weight: 700;
-            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; white-space: nowrap;
+            color: #0F172A; text-decoration: none; font-size: 0.88rem; font-weight: 800;
+            box-shadow: 0 5px 20px rgba(2, 132, 199, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; white-space: nowrap;
         }
         .media-pin:hover {
-            transform: translateY(-4px) scale(1.04); background: #0284C7;
-            color: #FFFFFF; border-color: #0369A1; box-shadow: 0 12px 25px rgba(2, 132, 199, 0.35);
+            transform: translateY(-4px) scale(1.05); background: #FFFFFF;
+            color: #0369A1; border-color: #0284C7; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.6);
         }
-        .pin-emoji { font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .pin-emoji { font-size: 1.1rem; }
         .pin-dot {
-            width: 7px; height: 7px; background: #0EA5E9; border-radius: 50%;
+            width: 8px; height: 8px; background: #0EA5E9; border-radius: 50%;
             box-shadow: 0 0 8px #0EA5E9; animation: pulseDot 1.5s infinite alternate;
         }
-        .media-pin:hover .pin-dot { background: #FFFFFF; box-shadow: 0 0 8px #FFFFFF; }
 
         .media-pin::after {
             content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%;
             transform: translateX(-50%) translateY(5px); background: #0F172A; color: #F8FAFC;
             padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500;
-            opacity: 0; pointer-events: none; transition: 0.2s; white-space: nowrap;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0; pointer-events: none; transition: 0.2s; white-space: nowrap; border: 1px solid #38BDF8;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
         }
         .media-pin:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -238,23 +226,19 @@
 </head>
 <body>
 
-    <!-- 🎬 시네마틱 인트로 -->
     <div id="intro-screen">
         <div class="motion-ring"></div>
         <div class="intro-text-container">
             <span class="intro-welcome">Welcome to</span>
             <span class="intro-logo">DONNA</span>
-            <!-- 🚨 수정 반영: 인트로 서브 타이틀 변경 -->
             <span class="intro-desc">Open Legal Search Tool</span>
             <div class="intro-tagline">For Students</div>
         </div>
     </div>
 
-    <!-- 🖥️ 메인 대시보드 -->
     <main class="dashboard-wrapper">
         <div class="brand-header">
             <h1>DONNA</h1>
-            <!-- 🚨 수정 반영: 메인 타이틀 하단 문구 변경 -->
             <div class="brand-subtitle">Open Legal Search Tool · <span>For Students</span></div>
         </div>
 
@@ -266,24 +250,29 @@
             <button class="search-btn" onclick="performMainSearch()">리서치</button>
         </div>
 
-        <!-- 🌍 홀로그램 정밀 벡터 세계지도 스테이지 -->
+        <!-- 🌍 사실적 전자 홀로그램 세계지도 스테이지 -->
         <div class="hologram-stage">
-            <div class="hologram-beam"></div>
+            <div class="volumetric-beam"></div>
             <div class="projector-base"></div>
 
-            <!-- 🚨 수정 반영: 고해상도(지형/해안선 뚜렷) SVG 맵 패스 렌더링 -->
             <svg class="world-map-svg" viewBox="0 0 1008 650" xmlns="http://www.w3.org/2000/svg">
-                <!-- 아메리카 대륙 -->
+                <!-- 글로벌 데이터 통신 네트워크 점선 -->
+                <path class="network-line" d="M 220 180 Q 360 90 490 150" />
+                <path class="network-line" d="M 490 150 Q 660 80 820 190" />
+                <path class="network-line" d="M 220 180 Q 520 280 820 190" />
+
+                <!-- 고해상도 홀로그램 대륙 점막 -->
                 <path class="map-path" d="M266.3,101.4c-6.2,3.3-15.1,10.6-20.9,13.6c-4.4,2.2-9.4,3.1-13.6,5.3c-4.1,2.1-9.9,6.7-14.5,8c-5.7,1.6-13.6,0.3-18.1,2.8c-3.1,1.7-5.5,5.1-7.8,7.8c-3,3.5-5.9,7.5-8,11.4c-2.4,4.4-4,10.2-5,15c-1,5.2-1,10.7-0.8,16.1c0.1,4.7-0.7,9.3-0.8,14.2c-0.2,9.3-2.1,19.2-3.1,28.6c-0.7,6.8-1,14.1-0.8,21.1c0.2,6.4,1.4,12.7,2.5,18.9c1,5.6,3.6,11.2,4.7,16.9c1.6,8.2,1,16.6,1.4,25c0.2,4.9,1,9.6,1.7,14.4c1,7,2.9,14.3,2.5,21.4c-0.3,5-2.2,9.5-2.2,14.4c0,4,1,7.9,1.4,11.9c0.7,7,0.7,14.1,2.8,20.8c2.4,7.6,7.7,14.1,11.7,21.1c3,5.3,4.9,11.1,7.2,16.6c1.7,4.1,4,7.8,6.1,11.7c2.3,4.3,4.3,9,7.5,12.8c3.2,3.8,7.8,6.5,12.5,8.9c4.9,2.5,10.1,4.5,15.3,6.4c5.1,1.9,10,4.4,15,6.4c5.6,2.2,11.6,3.6,17.5,5c6.5,1.5,13,2.9,19.7,3.6c5.8,0.6,11.7,1.2,17.5,2.5c6,1.4,12,3,17.8,5c4.7,1.6,9.2,3.7,14.2,4.7c5.1,1,10.7,0.7,15.8-0.3c6.1-1.2,11.7-4,17.2-6.7c5-2.5,9.4-5.9,14.2-8.6c5.2-2.9,10.9-4.8,16.4-7.2c5-2.2,9.9-4.7,15-6.7c4.7-1.8,9.7-3.1,14.4-4.7c4.4-1.5,8.8-3,13.3-4.2c4.8-1.3,10.2-1.9,14.7-4.2c3.5-1.8,6.3-4.7,9.2-7.5c2.9-2.8,5.4-6.1,7.8-9.4c2.5-3.5,4.3-7.5,6.7-10.8c2.5-3.5,5.7-6.5,8.6-9.7c3.1-3.4,5.9-7.1,8.9-10.6c3.2-3.8,6.8-7.3,10.3-10.8c4.2-4.2,8.6-8,13.3-11.7c4.2-3.3,8.6-6.4,13.1-9.4c4-2.7,8.2-5,12.5-7.2c4.8-2.5,10.1-4.2,15.3-6.1c5.2-1.9,10.5-3.5,15.8-5c5.3-1.5,10.7-2.9,16.1-3.9c5.6-1.1,11.2-1.9,16.9-2.5c6.1-0.6,12.3-1.1,18.3-2.2c5.3-1,10.5-2.6,15.6-4.4c5-1.8,9.9-4,14.7-6.4c4.6-2.3,9.1-5.1,13.3-8.3c4.2-3.2,8.3-6.5,12.2-10.3c3.8-3.7,7.1-8.1,10.3-12.5c3-4.2,5.6-8.8,7.8-13.6c1.9-4.2,3.3-8.8,4.2-13.3c0.9-4.5,1.2-9.2,0.8-13.9c-0.4-4.7-1.6-9.3-3.3-13.6c-2.1-5.3-5-10.2-8.3-14.7c-3.6-4.9-7.8-9.3-12.2-13.6c-4.4-4.3-9-8.4-13.9-12.2c-4.8-3.7-9.8-7.3-15.3-10c-5.7-2.8-12.1-4.7-18.3-5.8c-5.7-1-11.4-1.2-17.2-1.1c-5.3,0.1-10.6,0.6-15.8,1.4c-4.9,0.8-9.8,2-14.7,2.8c-5.4,0.9-10.9,1-16.4,1.4c-6.1,0.4-12.3,0.8-18.3,1.4c-6,0.6-12.1,0.6-18.1,1.1c-6,0.5-12,0.8-18.1,1.7c-5.5,0.8-10.9,2.4-16.1,4.2c-5.2,1.8-10.2,4.3-15.3,6.4c-5,2.1-9.9,4.4-15,6.1c-5.1,1.7-10.5,2.7-15.8,3.9c-5.3,1.2-10.7,2.1-16.1,3.3c-5.4,1.2-10.8,2.7-16.1,4.2c-5.2,1.5-10.4,3.3-15.6,5.3c-5,1.9-9.8,4-14.7,6.4c-4.7,2.3-9.3,4.9-13.9,7.5c-4.6,2.6-9.1,5.4-13.6,8.1c-4.3,2.6-8.5,5.4-12.8,8.1c-4.3,2.7-8.7,5.1-13.3,7.2c-4.8,2.2-9.9,4-15,5.3c-5,1.3-10.3,2-15.6,2.8c-5.3,0.8-10.6,1.4-16.1,1.4c-5.4,0-10.8-0.8-16.1-2.2c-5.1-1.3-9.9-3.2-14.7-5.6c-4.6-2.3-9.1-5.1-13.3-8.1c-4.4-3.1-8.5-6.6-12.2-10.6c-3.6-3.9-6.8-8.2-9.7-12.8c-2.8-4.4-5.2-9.1-7.2-13.9c-2.1-5.1-3.6-10.5-4.4-15.8c-0.8-5.3-1.1-10.8-0.8-16.1C264.4,113,265.1,107.1,266.3,101.4z"/>
-                <!-- 유라시아 및 아프리카 대륙 -->
-                <path class="map-path" d="M685.3,184.6c4.6-1.5,9.4-1.9,14.2-2.5c5.1-0.6,10.2-1.3,15.3-1.7c5.1-0.4,10.2-0.8,15.3-0.8c5.4,0,10.9,0.3,16.4,0.8c5.2,0.5,10.2,1.3,15.3,2.2c5.1,0.9,10.1,2,15.3,3.1c5.2,1.1,10.4,2.5,15.6,4.2c5,1.6,9.8,3.5,14.7,5.6c4.7,2,9.3,4.4,13.9,6.7c4.6,2.3,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2"/>
-                <!-- 한반도 및 일본 추가 디테일 윤곽선 -->
+                <path class="map-path" d="M685.3,184.6c4.6-1.5,9.4-1.9,14.2-2.5c5.1-0.6,10.2-1.3,15.3-1.7c5.1-0.4,10.2-0.8,15.3-0.8c5.4,0,10.9,0.3,16.4,0.8c5.2,0.5,10.2,1.3,15.3,2.2c5.1,0.9,10.1,2,15.3,3.1c5.2,1.1,10.4,2.5,15.6,4.2c5,1.6,9.8,3.5,14.7,5.6c4.7,2,9.3,4.4,13.9,6.7c4.6,2.3,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.7,2.4,9.4,4.9,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2c4.7,2.4,9.4,4.9,14.2,7.5c4.7,2.6,9.5,5.1,14.2,7.5c4.6,2.4,9.2,4.8,13.9,7.2"/>
                 <path class="map-path" d="M850,220 L860,235 L855,250 L840,245 Z" />
                 <path class="map-path" d="M880,240 L895,260 L885,280 L860,270 Z" />
-                <!-- 오세아니아 -->
                 <path class="map-path" d="M830,420 c10,-5 20,-10 30,-5 c10,5 15,15 25,20 c10,5 25,5 35,0 c10,-5 15,-15 20,-25 c5,-10 0,-25 -10,-35 c-10,-10 -25,-15 -40,-10 c-15,5 -25,15 -35,25 c-10,10 -15,25 -25,30 Z"/>
-                <!-- 섬(영국 등) -->
                 <path class="map-path" d="M460,170 c2,-5 5,-10 10,-12 c5,-2 10,0 12,5 c2,5 0,10 -5,12 c-5,2 -10,0 -12,-5 Z"/>
+                
+                <!-- 글로잉 데이터 노드 (빛나는 거점) -->
+                <circle cx="220" cy="180" r="3" class="glowing-node" />
+                <circle cx="490" cy="150" r="3" class="glowing-node" />
+                <circle cx="820" cy="190" r="3" class="glowing-node" />
             </svg>
 
             <!-- 🇺🇸 북미 핀 클러스터 -->
